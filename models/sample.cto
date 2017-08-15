@@ -37,7 +37,7 @@ event TransactionNotification {
     o Double amount
 }
 
-event TradeFromNotification {
+event TransactionFromNotification {
    --> Wallet walletFrom
    --> Wallet walletTo
    o Double amount
