@@ -1,0 +1,55 @@
+/**
+ * UseTech blockchain business network definition based on ERC20
+ */
+namespace org.acme.usetech
+
+asset Money identified by moneyId {
+  o String moneyId
+  o Double amount
+  --> Wallet wallet
+}
+
+participant Wallet identified by walletId {
+  o String walletId
+  o Double balance
+  --> Owner owner
+}
+
+participant Owner identified by ownerId {
+  o String ownerId
+  o String firstName
+  o String lastName
+}
+
+transaction Transfer {
+  --> Wallet walletTo
+  --> Money money
+}
+
+transaction TransferFrom {
+  --> Wallet walletFrom
+  --> Wallet walletTo
+  --> Money money
+}
+
+event TransactionNotification {
+    --> Wallet walletTo
+    o Double amount
+}
+
+event TradeFromNotification {
+   --> Wallet walletFrom
+   --> Wallet walletTo
+   o Double amount
+}
+
+event TransferFailNotification {
+    --> Wallet walletTo
+    o Double amount
+}
+
+event TransferFromFailNotification {
+    --> Wallet walletFrom
+    --> Wallet walletTo
+    o Double amount
+}
