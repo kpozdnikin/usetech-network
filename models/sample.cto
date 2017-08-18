@@ -1,55 +1,76 @@
 /**
- * UseTech blockchain business network definition based on ERC20
- */
-namespace org.acme.usetech
+1. Транзакции осуществляются на кошелек, который имеет пороговую сумму, при достижении которой финансы перечисляются на другой кошелек
+2. Иметь возможность ограничить сбор денег на таком кошельке датой.
+3. Нужно иметь тех, кто перечислял средства и целевой кошелек, куда они будут перечислены после окончания сбора.
+4. Нужно иметь возможность отзывать свой вклад с общего кошелька (задается при создании общего кошелька) - правило одно на всех.
+5. При перечислении большего объема чем нужно для закрытия, нужно учесть только необходимый объем и остальное вернуть.
+6. При создании транзакции хозяин может ли изменять дату завершения и может ли изменять пороговый объем средств для сбора.
+7. При изменении объема средств в меньшую сторону нужно отклонять изменение если уже есть деньги на общем кошельке.
 
-asset Money identified by moneyId {
-  o String moneyId
-  o Double amount
-  --> Wallet wallet
-}
+Должно быть публично доступно - кто создал общий кошелек, какие у него права есть (флаги на сумму и дату сбора).
+Нужен отдельный метод - закрытие транзакции досрочно - хозяин имеет возможность остановить сбор средств либо с успехом либо с отменой -
+либо провести транзакцию на целевой кошелек либо отменить ее. Это 2 раздельных права у транзакции.
 
-participant Wallet identified by walletId {
-  o String walletId
-  o Double balance
-  --> Owner owner
-}
+* UseTech blockchain business network definition based on ERC20
+*/
 
-participant Owner identified by ownerId {
-  o String ownerId
-  o String firstName
-  o String lastName
-}
+ namespace org.acme.usetech
 
-transaction Transfer {
-  --> Wallet walletTo
-  --> Money money
-}
+ asset Money identified by moneyId {
+   o String moneyId
+   o Double amount
+   --> Owner owner
+ }
 
-transaction TransferFrom {
-  --> Wallet walletFrom
-  --> Wallet walletTo
-  --> Money money
-}
+ participant Wallet identified by walletId {
+   o String walletId
+   --> Money money
+ }
 
-event TransactionNotification {
-    --> Wallet walletTo
-    o Double amount
-}
+ participant GroupWaller identified by groupWalletId {
+   o String groupWalletId
+   o DateTime finishDate
+   --> Money[] money
+   o Wallet targetWallet
+   o Boolean canReturnMoney
+   o Double moneyMaxLimit
+ }
 
-event TransactionFromNotification {
-   --> Wallet walletFrom
+ participant Owner identified by ownerId {
+   o String ownerId
+   o String firstName
+   o String lastName
+ }
+
+ transaction Transfer {
    --> Wallet walletTo
    o Double amount
-}
+ }
 
-event TransferFailNotification {
-    --> Wallet walletTo
-    o Double amount
-}
+ transaction TransferFrom {
+   --> Wallet walletFrom
+   --> Wallet walletTo
+   --> Money money
+ }
 
-event TransferFromFailNotification {
+ event TransactionNotification {
+     --> Wallet walletTo
+     o Double amount
+ }
+
+ event TransactionFromNotification {
     --> Wallet walletFrom
     --> Wallet walletTo
     o Double amount
-}
+ }
+
+ event TransferFailNotification {
+     --> Wallet walletTo
+     o Double amount
+ }
+
+ event TransferFromFailNotification {
+     --> Wallet walletFrom
+     --> Wallet walletTo
+     o Double amount
+ }
