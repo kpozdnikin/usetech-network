@@ -50,7 +50,7 @@
  transaction TransferFrom {
    --> Wallet walletFrom
    --> Wallet walletTo
-   --> Money money
+   o Double amount
  }
 
  event TransactionNotification {
@@ -66,11 +66,13 @@
 
  event TransferFailNotification {
      --> Wallet walletTo
+     o String error
      o Double amount
  }
 
  event TransferFromFailNotification {
      --> Wallet walletFrom
      --> Wallet walletTo
+     o String error
      o Double amount
  }
