@@ -27,7 +27,7 @@
    --> Money money
  }
 
- participant GroupWaller identified by groupWalletId {
+ participant GroupWallet identified by groupWalletId {
    o String groupWalletId
    o DateTime finishDate
    --> Money[] money
@@ -53,6 +53,18 @@
    o Double amount
  }
 
+transaction TransferToGroupWallet {
+   --> Wallet walletFrom
+   --> GroupWallet walletTo
+   o Double amount
+ }
+
+transaction TransferFromGroupWallet {
+   --> Wallet walletFrom
+   --> Wallet walletTo
+   o Double amount
+ }
+
  event TransactionNotification {
      --> Wallet walletTo
      o Double amount
@@ -73,6 +85,19 @@
  event TransferFromFailNotification {
      --> Wallet walletFrom
      --> Wallet walletTo
+     o String error
+     o Double amount
+ }
+
+event TransactionToGroupWalletNotification {
+    --> Wallet walletFrom
+    --> GroupWallet walletTo
+    o Double amount
+ }
+
+ event TransactionToGroupWalletFailNotification {
+     --> Wallet walletFrom
+     --> GroupWallet walletTo
      o String error
      o Double amount
  }
