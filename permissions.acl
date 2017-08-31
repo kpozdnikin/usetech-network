@@ -1,0 +1,54 @@
+/**
+ * UseTech access control list.
+ */
+
+ rule AllAccess {
+      description: "AllAccess - grant everything to everybody."
+      participant: "org.hyperledger.composer.system.Participant"
+      operation: ALL
+      resource: "org.hyperledger.composer.system.**"
+      action: ALLOW
+  }
+
+/*
+rule EverybodyCanReadEverything {
+    description: "Allow all participants read access to all resources"
+    participant: "org.acme.usetech.Owner"
+    operation: READ
+    resource: "org.acme.usetech.*"
+    action: ALLOW
+}
+
+rule EverybodyCanSubmitTransfer {
+    description: "Allow all participants to submit transfers"
+    participant: "org.acme.usetech.Owner"
+    operation: CREATE
+    resource: "org.acme.usetech.Transfer"
+    action: ALLOW
+}
+
+rule EverybodyCanSubmitTransferFrom {
+    description: "Allow all participants to submit transfersFrom"
+    participant: "org.acme.usetech.Owner"
+    operation: CREATE
+    resource: "org.acme.usetech.TransferFrom"
+    action: ALLOW
+}
+
+rule OwnerHasFullAccessToTheirWallets {
+    description: "Allow all participants full access to their wallets"
+    participant(p): "org.acme.usetech.Owner"
+    operation: ALL
+    resource(r): "org.acme.usetech.Wallet"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+*/

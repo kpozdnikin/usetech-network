@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ab670003-6af4-4b3d-a917-213486a506f0" name="develop" url="http://192.168.100.73">
+        <fileTransfer host="192.168.100.73" port="22" rootFolder="/home/remotelogin/my-network" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
