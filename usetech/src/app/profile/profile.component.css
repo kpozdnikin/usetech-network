@@ -1,0 +1,22 @@
+.list-group{
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+.list-group-item.divider {
+	padding: 0;
+	margin: 0;
+	height: 1px;
+	background: #ddd;
+}
+.list-group-item {
+	border: none;
+	cursor: pointer;
+	min-height: 40px;
+}
+
+.list-group-item:hover {
+	background: #ddd;
+}
+.control-label.text-left {
+	text-align: left !important;
+}
