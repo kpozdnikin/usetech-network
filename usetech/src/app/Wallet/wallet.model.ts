@@ -1,27 +1,27 @@
 import {ISerializable} from '../Core/core';
 
 export interface IWallet {
-	id: number,
-	is_deleted: boolean,
+	walletId: number,
+	money: string,
 }
 
 export class Wallet implements ISerializable<IWallet> {
-	id: number;
-	is_deleted: boolean = false;
+	walletId: number;
+	money: string;
 
 	constructor(data = null) {
 		data && this.deserialize(data);
 	}
 
 	deserialize(structure: IWallet) {
-		this.id = structure.id;
-		this.is_deleted = structure.is_deleted;
+		this.walletId = structure.walletId;
+		this.money = structure.money;
 	}
 
 	serialize() {
 		return {
-			id: this.id,
-			is_deleted: this.is_deleted,
+			walletId: this.walletId,
+			money: this.money,
 		};
 	}
 }

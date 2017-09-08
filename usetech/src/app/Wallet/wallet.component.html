@@ -2,18 +2,24 @@
 	<div class="row">
 		<div class="col-md-3">
 			<div class="list-group">
-				<li class="list-group-item active">Wallet1 123213213</li>
-				<li class="list-group-item">Wallet2 123213213</li>
-				<li class="list-group-item">Wallet3 123213213</li>
-				<li class="list-group-item">Wallet4 123213213</li>
+				<li *ngFor="let wallet of allWallets;"
+						[ngClass]="selectedWallet && selectedWallet.walletId === wallet.walletId ? 'active' : ''"
+						(click)="selectWallet(wallet)"
+						class="list-group-item">
+					{{ wallet.walletId }}
+				</li>
 				<li class="list-group-item divider" role="separator"></li>
-				<li class="list-group-item">All transactions</li>
+				<li class="list-group-item"
+						[ngClass]="!selectedWallet ? 'active' : ''"
+						(click)="selectWallet()">
+					All transactions
+				</li>
 			</div>
 		</div>
 		<div class="col-md-9">
 			<div class="row">
 				<div class="col-md-2">Balance:</div>
-				<div class="col-md-2">1000 <a href="#">CUR</a></div>
+				<div class="col-md-2">{{ money ? money.amount : null }} <a href="#">CUR</a></div>
 				<div class="col-md-6"></div>
 				<div class="col-md-2">
 					<p><a href="#">New transaction</a></p>
@@ -53,12 +59,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>123123213wd</td>
-								<td>2352352f23f</td>
+							<tr *ngFor="let transaction of allTransactions;">
+								<td>{{ transaction.walletFrom || 'Bank' }}</td>
+								<td>{{ transaction.walletTo || 'Bank' }}</td>
 								<td>CUR</td>
-								<td>03.09.2017 19.45</td>
-								<td>19.45</td>
+								<td>{{ transaction.timestamp | date:'dd.MM.yyyy HH:mm' }}</td>
+								<td>{{ transaction.amount }}</td>
 							</tr>
 						</tbody>
 					</table>

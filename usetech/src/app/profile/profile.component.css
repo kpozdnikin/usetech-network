@@ -7,6 +7,7 @@
 	margin: 0;
 	height: 1px;
 	background: #ddd;
+	min-height: 0;
 }
 .list-group-item {
 	border: none;
